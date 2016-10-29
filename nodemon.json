@@ -1,0 +1,9 @@
+{
+  "verbose": true,
+  "ignore": [
+    "e2e/*",
+    "./README.md",
+    "yarn.lock",
+    ".git"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "extends": [
+    "standard",
+    ".eslintrc-sails"
+  ],
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      {
+        "caughtErrorsIgnorePattern": "^[A-Z]"
+      }
+    ],
+    "no-new": 1,
+    "valid-jsdoc": [
+      2,
+      {
+        "requireReturn": false,
+        "prefer": {
+          "return": "returns"
+        }
+      }
+    ]
+  },
+  "globals": {
+    "angular": true,
+    "jasmine": true,
+    "describe": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "before": true,
+    "after": true,
+    "server": true,
+    "should": true,
+    "expect": true,
+    "it": true,
+    "inject": true,
+    "browser": true,
+    "by": true,
+    "protractor": true,
+    "element": true,
+    "Page": true,
+    "async": true,
+    "_": true,
+    "ExtractJwt": true,
+    "$": true,
+    "Sequelize": true
+  }
+}

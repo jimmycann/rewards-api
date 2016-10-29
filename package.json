@@ -1,0 +1,87 @@
+{
+  "name": "rewards-api",
+  "private": true,
+  "version": "0.0.1",
+  "description": "A membership API which allows returning customers to accrue rewards and redeem those rewards when they make future purchases.",
+  "scripts": {
+    "start:prod": "forever start app.js --prod",
+    "start:dev": "cross-env NODE_ENV='dev' nodemon app.js",
+    "stop:prod": "forever stop app.js",
+    "restart:prod": "forever restart app.js --prod",
+    "test": "swagger project test",
+    "sails-eslint": "node_modules/.bin/sails-generate-eslintrc"
+  },
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "forever": "^0.15.2",
+    "jsonwebtoken": "^7.1.9",
+    "moment": "^2.15.0",
+    "rc": "^1.1.6",
+    "sails": "~0.12.4",
+    "sails-generate-eslintrc": "^1.3.2",
+    "sails-service-cipher": "^3.2.1",
+    "sails-service-hash": "^3.2.1",
+    "socket.io-redis": "^1.1.1",
+    "swagger-sails-hook": "^0.7.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.14.0",
+    "babel-eslint": "^6.1.2",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-2": "^6.13.0",
+    "cross-env": "^2.0.1",
+    "eslint": "^3.4.0",
+    "eslint-config-standard": "^5.3.1",
+    "eslint-plugin-jasmine": "^1.8.1",
+    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-standard": "^2.0.0",
+    "nodemon": "^1.10.2",
+    "should": "^5.2.0",
+    "supertest": "^0.15.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-2"
+    ],
+    "plugins": [
+      "transform-runtime"
+    ]
+  },
+  "eslintConfig": {
+    "plugins": [
+      "jasmine"
+    ]
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "ignoreFiles": [
+      "assets/dist/bundle/** ",
+      "node_modules/** ",
+      "assets/node_modules/** "
+    ],
+    "rules": {
+      "at-rule-empty-line-before": [
+        "always",
+        {
+          "except": [
+            "blockless-group",
+            "all-nested"
+          ],
+          "ignore": [
+            "after-comment"
+          ]
+        }
+      ],
+      "font-family-name-quotes": "single-where-recommended",
+      "function-url-quotes": "single",
+      "number-leading-zero": "never",
+      "string-quotes": "single"
+    }
+  },
+  "author": "Jimmy Cann",
+  "analyze": true,
+  "license": "MIT"
+}
