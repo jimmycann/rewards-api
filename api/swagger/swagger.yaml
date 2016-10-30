@@ -63,6 +63,25 @@ paths:
           description: Unexpected Error
           schema:
             $ref: '#/definitions/Error'
+  /api/v1/users/{userId}:
+    x-swagger-router-controller: UsersController
+    delete:
+      description: Deletes a user
+      operationId: remove
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: A user has been deleted
+          schema:
+            $ref: '#/definitions/UpdateSuccess'
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
   /swagger:
     x-swagger-pipe: swagger_raw
 
@@ -73,7 +92,7 @@ definitions:
     properties:
       success:
         type: boolean
-    
+
   User:
     allOf:
       - $ref: '#/definitions/NewUser'

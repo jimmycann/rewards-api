@@ -57,4 +57,43 @@ describe('UsersController', () => {
       })
     })
   })
+  describe('.delete', () => {
+    describe('DELETE /api/v1/users/delete', () => {
+      let now = (new Date()).getTime()
+      it('should create a new user then delete', (done) => {
+        request('http://127.0.0.1:10010')
+          .post('/api/v1/users/create')
+          .send({
+            firstName: 'Jimmy',
+            lastName: 'Cann',
+            email: now + '@jimmycann.com'
+          })
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end((err, res) => {
+            console.log(res.body)
+            should.not.exist(err)
+            should.exist(res.body.id)
+            should.exist(res.body.createdAt)
+            should.exist(res.body.updatedAt)
+            res.body.should.have.property('firstName', 'Jimmy')
+            res.body.should.have.property('lastName', 'Cann')
+            res.body.should.have.property('email', now + '@jimmycann.com')
+            let deleteId = res.body.id
+            request('http://127.0.0.1:10010')
+              .delete('/api/v1/users/' + deleteId)
+              .set('Accept', 'application/json')
+              .expect('Content-Type', /json/)
+              .expect(200)
+              .end((err, res) => {
+                console.log(res.body)
+                should.not.exist(err)
+                res.body.should.have.property('success', true)
+                done()
+              })
+          })
+      })
+    })
+  })
 })
