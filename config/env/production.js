@@ -1,4 +1,4 @@
-/** 
+/**
  * Production environment settings
  *
  * This file can include shared settings for a production environment,
@@ -17,9 +17,10 @@ module.exports = {
    * environment (see config/connections.js and config/models.js )           *
    ***************************************************************************/
 
-  // models: {
-  //   connection: 'someMysqlServer'
-  // },
+  models: {
+
+    connection: 'postgres'
+  }
 
   /** *************************************************************************
    * Set the port in the production environment to 80                        *
