@@ -21,5 +21,8 @@ module.exports = {
 
   models: {
     connection: 'postgres'
+  },
+  log: {
+    level: 'verbose'
   }
 }

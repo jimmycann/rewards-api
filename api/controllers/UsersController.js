@@ -9,6 +9,7 @@
 module.exports = {
   create: create,
   update: update,
+  fetchOne: fetchOne,
   remove: remove
 }
 
@@ -34,7 +35,7 @@ function create (req, res) {
     email: req.body.email,
     mob: req.body.mob
   }).then((result) => {
-    return res.status(200).send(result)
+    return res.status(201).send(result)
   }).catch((err) => {
     return res.status(500).send(err)
   })
@@ -64,8 +65,27 @@ function update (req, res) {
     where: {
       id: parseInt(req.body.userId)
     }
-  }).then(() => {
+  }).then((result) => {
+    if (result[0] === 0) return res.status(204).send()
     return res.status(200).send({ success: true })
+  }).catch((err) => {
+    return res.status(500).send(err)
+  })
+}
+
+/**
+ * @description :: Retrieves a user
+ * @policy :: TBA
+ * @path :: /api/v1/users/:userId (GET)
+ * @param {{obj}} req :: Request data
+ * @param {{obj}} res :: Response data
+ * @param {{int}} req.swagger.params.userId.value :: The userId to retrieve
+ * @result :: Object containing the newly created user
+ */
+function fetchOne (req, res) {
+  Users.findById(parseInt(req.swagger.params.userId.value)).then((result) => {
+    if (!result) return res.status(204).send()
+    return res.status(200).send(result)
   }).catch((err) => {
     return res.status(500).send(err)
   })
@@ -75,10 +95,10 @@ function update (req, res) {
  * @description :: Delete a user
  * @policy :: TBA
  * @path :: /api/v1/users/:userId (DELETE)
- * @param {{int}} userId :: The userId to delete
  * @param {{obj}} req :: Request data
  * @param {{obj}} res :: Response data
- * @result :: Object containing the newly created user
+ * @param {{int}} req.swagger.params.userId.value :: The userId to delete
+ * @result :: { success: true }
  */
 function remove (req, res) {
   Users.destroy({
@@ -86,7 +106,8 @@ function remove (req, res) {
       id: parseInt(req.swagger.params.userId.value)
     },
     truncate: false
-  }).then(() => {
+  }).then((result) => {
+    if (result === 0) return res.status(204).send()
     return res.status(200).send({ success: true })
   }).catch((err) => {
     return res.status(500).send(err)

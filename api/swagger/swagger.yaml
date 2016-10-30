@@ -34,8 +34,8 @@ paths:
           schema:
             $ref: '#/definitions/NewUser'
       responses:
-        "200":
-          description: User has been updated
+        "201":
+          description: User has been created
           schema:
             $ref: '#/definitions/User'
         default:
@@ -56,15 +56,36 @@ paths:
             $ref: '#/definitions/UpdateUser'
       responses:
         "200":
-          description: New user has been created
+          description: The user has been updated
           schema:
             $ref: '#/definitions/UpdateSuccess'
+        "204":
+          description: The request was processed but no user was found
         default:
           description: Unexpected Error
           schema:
             $ref: '#/definitions/Error'
   /api/v1/users/{userId}:
     x-swagger-router-controller: UsersController
+    get:
+      description: Retrieves a single user
+      operationId: fetchOne
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: Returns a users' data
+          schema:
+            $ref: '#/definitions/User'
+        "204":
+          description: The request was processed but no user was found
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
     delete:
       description: Deletes a user
       operationId: remove
@@ -78,6 +99,8 @@ paths:
           description: A user has been deleted
           schema:
             $ref: '#/definitions/UpdateSuccess'
+        "204":
+          description: The request was processed but no user was found
         default:
           description: Unexpected Error
           schema:

@@ -15,7 +15,7 @@ describe('UsersController', () => {
           })
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
-          .expect(200)
+          .expect(201)
           .end((err, res) => {
             console.log(res.body)
             should.not.exist(err)
@@ -57,8 +57,31 @@ describe('UsersController', () => {
       })
     })
   })
+  describe('.fecthOne', () => {
+    describe('GET /api/v1/users/{userId}', () => {
+      it('should retrieve a user', (done) => {
+        request('http://127.0.0.1:10010')
+          .get('/api/v1/users/1')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end((err, res) => {
+            console.log(res.body)
+            should.not.exist(err)
+            should.exist(res.body.id)
+            should.exist(res.body.firstName)
+            should.exist(res.body.lastName)
+            should.exist(res.body.email)
+            should.exist(res.body.mob)
+            should.exist(res.body.createdAt)
+            should.exist(res.body.updatedAt)
+            done()
+          })
+      })
+    })
+  })
   describe('.delete', () => {
-    describe('DELETE /api/v1/users/delete', () => {
+    describe('DELETE /api/v1/users/{userId}', () => {
       let now = (new Date()).getTime()
       it('should create a new user then delete', (done) => {
         request('http://127.0.0.1:10010')
@@ -70,7 +93,7 @@ describe('UsersController', () => {
           })
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
-          .expect(200)
+          .expect(201)
           .end((err, res) => {
             console.log(res.body)
             should.not.exist(err)
