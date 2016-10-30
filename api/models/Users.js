@@ -47,10 +47,9 @@ module.exports = {
       }
     },
     mob: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT,
       defaultValue: null,
       validate: {
-        isNumberic: true,
         len: [8, 16]
       }
     },

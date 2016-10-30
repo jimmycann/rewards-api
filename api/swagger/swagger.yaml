@@ -22,7 +22,6 @@ produces:
   - application/json
 paths:
   /api/v1/users/create:
-    # binds a127 app logic to a route
     x-swagger-router-controller: UsersController
     post:
       description: Creates a new user
@@ -36,9 +35,30 @@ paths:
             $ref: '#/definitions/NewUser'
       responses:
         "200":
-          description: New user has been created
+          description: User has been updated
           schema:
             $ref: '#/definitions/User'
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/v1/users/update:
+    x-swagger-router-controller: UsersController
+    put:
+      description: Updates a user
+      operationId: update
+      parameters:
+        - name: user
+          in: body
+          description: Parameters required for updating a user
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateUser'
+      responses:
+        "200":
+          description: New user has been created
+          schema:
+            $ref: '#/definitions/UpdateSuccess'
         default:
           description: Unexpected Error
           schema:
@@ -47,6 +67,13 @@ paths:
     x-swagger-pipe: swagger_raw
 
 definitions:
+  UpdateSuccess:
+    type: object
+    description: On update success the API will return an object containing success as true.
+    properties:
+      success:
+        type: boolean
+    
   User:
     allOf:
       - $ref: '#/definitions/NewUser'
@@ -80,6 +107,40 @@ definitions:
         minLength: 3
         maxLength: 254
       mob:
+        type: integer
+        description: The users' mobile phone number
+        minLength: 8
+        maxLength: 16
+
+  UpdateUser:
+    type: object
+    required:
+      - userId
+    properties:
+      userId:
+        type: integer
+        description: The ID of the user that is to be updted
+        minLength: 1
+        maxLength: 11
+      userData:
+        type: object
+        description: An object containing the user data to update. At least one paramter in this object is required
+      userData.firstName:
+        type: string
+        description: The users' first name
+        minLength: 2
+        maxLength: 64
+      userData.lastName:
+        type: string
+        description: The users' last name
+        minLength: 2
+        maxLength: 64
+      userData.email:
+        type: string
+        description: The users' email address
+        minLength: 3
+        maxLength: 254
+      userData.mob:
         type: integer
         description: The users' mobile phone number
         minLength: 8
