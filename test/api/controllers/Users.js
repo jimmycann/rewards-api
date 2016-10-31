@@ -100,6 +100,27 @@ describe('UsersController', () => {
       })
     })
   })
+  describe('POST /api/v1/users/search', () => {
+    it('should return a match', (done) => {
+      request('http://127.0.0.1:10010')
+        .post('/api/v1/users/search')
+        .send({
+          query: 'Jim'
+        })
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end((err, res) => {
+          should.not.exist(err)
+          should.exist(res.body[0].id)
+          should.exist(res.body[0].firstName)
+          should.exist(res.body[0].lastName)
+          should.exist(res.body[0].email)
+          should.exist(res.body[0].createdAt)
+          done()
+        })
+    })
+  })
   describe('.delete', () => {
     describe('DELETE /api/v1/users/{userId}', () => {
       let now = (new Date()).getTime()
