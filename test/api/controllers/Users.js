@@ -57,7 +57,7 @@ describe('UsersController', () => {
       })
     })
   })
-  describe('.fecthOne', () => {
+  describe('.fetchOne', () => {
     describe('GET /api/v1/users/{userId}', () => {
       it('should retrieve a user', (done) => {
         request('http://127.0.0.1:10010')

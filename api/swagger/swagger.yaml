@@ -25,7 +25,7 @@ paths:
     x-swagger-router-controller: UsersController
     post:
       description: Creates a new user
-      operationId: create
+      operationId: createUser
       parameters:
         - name: user
           in: body
@@ -46,7 +46,7 @@ paths:
     x-swagger-router-controller: UsersController
     put:
       description: Updates a user
-      operationId: update
+      operationId: updateUser
       parameters:
         - name: user
           in: body
@@ -69,7 +69,7 @@ paths:
     x-swagger-router-controller: UsersController
     get:
       description: Retrieves all users
-      operationId: fetchAll
+      operationId: fetchAllUsers
       responses:
         "200":
           description: Returns an array containing all users' data
@@ -85,7 +85,7 @@ paths:
     x-swagger-router-controller: UsersController
     get:
       description: Retrieves a single user
-      operationId: fetchOne
+      operationId: fetchOneUser
       parameters:
         - name: userId
           in: path
@@ -104,7 +104,7 @@ paths:
             $ref: '#/definitions/Error'
     delete:
       description: Deletes a user
-      operationId: remove
+      operationId: removeUser
       parameters:
         - name: userId
           in: path
@@ -117,6 +117,106 @@ paths:
             $ref: '#/definitions/UpdateSuccess'
         "204":
           description: The request was processed but no user was found
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/v1/titles/create:
+    x-swagger-router-controller: TitlesController
+    post:
+      description: Creates a new title
+      operationId: createTitle
+      parameters:
+        - name: title
+          in: body
+          description: Parameters required for creating a new title
+          required: true
+          schema:
+            $ref: '#/definitions/NewTitle'
+      responses:
+        "201":
+          description: Title has been created
+          schema:
+            $ref: '#/definitions/Title'
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/v1/titles/update:
+    x-swagger-router-controller: TitlesController
+    put:
+      description: Updates a title
+      operationId: updateTitle
+      parameters:
+        - name: title
+          in: body
+          description: Parameters required for updating a title
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateTitle'
+      responses:
+        "200":
+          description: The title has been updated
+          schema:
+            $ref: '#/definitions/UpdateSuccess'
+        "204":
+          description: The request was processed but no title was found
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/v1/titles:
+    x-swagger-router-controller: TitlesController
+    get:
+      description: Retrieves all titles
+      operationId: fetchAllTitles
+      responses:
+        "200":
+          description: Returns an array containing all titles' data
+          schema:
+            $ref: '#/definitions/TitleArr'
+        "204":
+          description: The request was processed but no titles were found
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/v1/titles/{titleId}:
+    x-swagger-router-controller: TitlesController
+    get:
+      description: Retrieves a single title
+      operationId: fetchOneTitle
+      parameters:
+        - name: titleId
+          in: path
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: Returns a titles' data
+          schema:
+            $ref: '#/definitions/Title'
+        "204":
+          description: The request was processed but no title was found
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      description: Deletes a title
+      operationId: removeTitle
+      parameters:
+        - name: titleId
+          in: path
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: A title has been deleted
+          schema:
+            $ref: '#/definitions/UpdateSuccess'
+        "204":
+          description: The request was processed but no title was found
         default:
           description: Unexpected Error
           schema:
@@ -141,7 +241,7 @@ definitions:
           id:
             type: integer
             format: int64
-            
+
   UserArr:
     type: array
     items:
@@ -154,6 +254,11 @@ definitions:
       - lastName
       - email
     properties:
+      titleId:
+        type: integer
+        description: The users' titleId (Default 0)
+        minLength: 1
+        maxLength: 2     
       firstName:
         type: string
         description: The users' first name
@@ -174,6 +279,11 @@ definitions:
         description: The users' mobile phone number
         minLength: 8
         maxLength: 16
+      level:
+        type: integer
+        description: The users' level (Default 0)
+        minLength: 1
+        maxLength: 3        
 
   UpdateUser:
     type: object
@@ -188,6 +298,11 @@ definitions:
       userData:
         type: object
         description: An object containing the user data to update. At least one paramter in this object is required
+      userData.titleId:
+        type: integer
+        description: The users' titleId
+        minLength: 1
+        maxLength: 2        
       userData.firstName:
         type: string
         description: The users' first name
@@ -208,6 +323,64 @@ definitions:
         description: The users' mobile phone number
         minLength: 8
         maxLength: 16
+      userData.level:
+        type: integer
+        description: The users' level
+        minLength: 1
+        maxLength: 3
+
+  Title:
+    allOf:
+      - $ref: '#/definitions/NewTitle'
+      - required:
+        - id
+        properties:
+          id:
+            type: integer
+            format: int64
+
+  TitleArr:
+    type: array
+    items:
+      $ref: '#/definitions/Title'
+
+  NewTitle:
+    type: object
+    required:
+      - name
+    properties:   
+      name:
+        type: string
+        description: The title name
+        minLength: 2
+        maxLength: 64
+      description:
+        type: string
+        description: The titles' description
+        maxLength: 255   
+
+  UpdateTitle:
+    type: object
+    required:
+      - titleId
+    properties:
+      titleId:
+        type: integer
+        description: The ID of the title that is to be updted
+        minLength: 1
+        maxLength: 11
+      titleData:
+        type: object
+        description: An object containing the title data to update. At least one paramter in this object is required
+      titleData.name:
+        type: string
+        description: The title name
+        minLength: 2
+        maxLength: 64
+      titleData.description:
+        type: string
+        description: The titles' description
+        maxLength: 255        
 
   Error:
     required:

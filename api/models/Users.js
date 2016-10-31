@@ -14,13 +14,20 @@ module.exports = {
     timestamps: true
   },
   associations: () => {
-
+    Users.hasOne(Titles, {foreignKey: 'titleId'})
   },
   attributes: {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true
+    },
+    titleId: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+      validate: {
+        len: [1, 2]
+      }
     },
     email: {
       type: Sequelize.STRING,
@@ -51,6 +58,13 @@ module.exports = {
       defaultValue: null,
       validate: {
         len: [8, 16]
+      }
+    },
+    level: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+      validate: {
+        len: [1, 3]
       }
     },
     createdAt: Sequelize.DATE,

@@ -2,8 +2,9 @@
 	"globals": {
 		"sails": true,
 		"UsersController": true,
-		"hello_world": true,
+		"Titles": true,
 		"Users": true,
+		"hello_world": true,
 		"sequelize": true
 	}
 }

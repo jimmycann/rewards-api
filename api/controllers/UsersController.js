@@ -7,11 +7,11 @@
  */
 
 module.exports = {
-  create: create,
-  update: update,
-  fetchOne: fetchOne,
-  fetchAll: fetchAll,
-  remove: remove
+  createUser: createUser,
+  updateUser: updateUser,
+  fetchOneUser: fetchOneUser,
+  fetchAllUsers: fetchAllUsers,
+  removeUser: removeUser
 }
 
 /**
@@ -29,7 +29,7 @@ module.exports = {
  * @param {{obj}} res :: Response data
  * @result :: Object containing the newly created user
  */
-function create (req, res) {
+function createUser (req, res) {
   Users.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -58,9 +58,9 @@ function create (req, res) {
 }
  * @param {{obj}} req :: Request data
  * @param {{obj}} res :: Response data
- * @result :: Object containing the newly created user
+ * @result :: { success: true }
  */
-function update (req, res) {
+function updateUser (req, res) {
   if (req.body.userData.mob) req.body.userData.mob = parseInt(req.body.userData.mob)
   Users.update(req.body.userData, {
     where: {
@@ -83,7 +83,7 @@ function update (req, res) {
  * @param {{int}} req.swagger.params.userId.value :: The userId to retrieve
  * @result :: Object containing the requested user data
  */
-function fetchOne (req, res) {
+function fetchOneUser (req, res) {
   Users.findById(parseInt(req.swagger.params.userId.value)).then((result) => {
     if (!result) return res.status(204).send()
     return res.status(200).send(result)
@@ -100,7 +100,7 @@ function fetchOne (req, res) {
  * @param {{obj}} res :: Response data
  * @result :: Object containing all users
  */
-function fetchAll (req, res) {
+function fetchAllUsers (req, res) {
   Users.findAll().then((result) => {
     if (!result) return res.status(204).send()
     return res.status(200).send(result)
@@ -118,7 +118,7 @@ function fetchAll (req, res) {
  * @param {{int}} req.swagger.params.userId.value :: The userId to delete
  * @result :: { success: true }
  */
-function remove (req, res) {
+function removeUser (req, res) {
   Users.destroy({
     where: {
       id: parseInt(req.swagger.params.userId.value)
