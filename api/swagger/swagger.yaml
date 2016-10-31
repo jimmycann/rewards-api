@@ -543,13 +543,21 @@ definitions:
         description: The rewards' description
         maxLength: 255
       level:
-        type: string
+        type: integer
         description: The user level at which the reward is unlocked
         minLength: 1
         maxLength: 3
+      minQty:
+        type: integer
+        description: The minimum quantity required to trigger the reward
+        maxLength: 5
+      minOrderAmt:
+        type: integer
+        description: The minimum order amount required to trigger the reward
+        maxLength: 5          
       products:
         type: array
-        description: An array of products for which this reward is applicable eg. ['coffee', 'cakes']
+        description: An array of products for which this reward is applicable eg. ['coffee', 'cakes']. Set as null to apply to all products.
         items:
           type: string
       discountType:
@@ -560,7 +568,7 @@ definitions:
       amount:
         type: integer
         description: The percentage or dollar discount amount (depending on discountType setting) that applies to the reward
-        maxLength: 10
+        maxLength: 5
 
   UpdateReward:
     type: object
@@ -585,13 +593,21 @@ definitions:
         description: The rewards' description
         maxLength: 255
       rewardData.level:
-        type: string
+        type: integer
         description: The user level at which the reward is unlocked
         minLength: 1
         maxLength: 3
+      rewardData.minQty:
+        type: integer
+        description: The minimum quantity required to trigger the reward
+        maxLength: 5
+      rewardData.minOrderAmt:
+        type: integer
+        description: The minimum order amount required to trigger the reward
+        maxLength: 5        
       rewardData.products:
         type: array
-        description: An array of products for which this reward is applicable eg. ['coffee', 'cakes']
+        description: An array of products for which this reward is applicable eg. ['coffee', 'cakes']. Set as null to apply to all products.
         items:
           type: string
       rewardData.discountType:
@@ -602,7 +618,7 @@ definitions:
       rewardData.amount:
         type: integer
         description: The percentage or dollar discount amount (depending on discountType setting) that applies to the reward
-        maxLength: 10
+        maxLength: 5
 
   Error:
     required:

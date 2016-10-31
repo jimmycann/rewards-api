@@ -23,6 +23,8 @@ module.exports = {
   name: string *
   description: string *
   level: integer *
+  minQty: integer
+  minOrderAmt: integer
   products: array of strings
   discountType: string ('pc' or 'abs')
   amount: integer
@@ -37,6 +39,8 @@ function createReward (req, res) {
     description: req.body.description,
     level: parseInt(req.body.level),
     products: req.body.products,
+    minQty: parseInt(req.body.minQty),
+    minOrderAmt: parseInt(req.body.minOrderAmt),
     discountType: req.body.discountType,
     amount: parseInt(req.body.amount)
   }).then((result) => {
@@ -57,6 +61,8 @@ function createReward (req, res) {
      name: string *
      description: string *
      level: integer *
+     minQty: integer
+     minOrderAmt: integer
      products: array of strings
      discountType: string ('pc' or 'abs')
      amount: integer
@@ -69,6 +75,8 @@ function createReward (req, res) {
 function updateReward (req, res) {
   if (req.body.rewardData.level) req.body.rewardData.level = parseInt(req.body.rewardData.level)
   if (req.body.rewardData.amount) req.body.rewardData.amount = parseInt(req.body.rewardData.amount)
+  if (req.body.rewardData.minQty) req.body.rewardData.minQty = parseInt(req.body.rewardData.minQty)
+  if (req.body.rewardData.minOrderAmt) req.body.rewardData.minOrderAmt = parseInt(req.body.rewardData.minOrderAmt)
   Rewards.update(req.body.rewardData, {
     where: {
       id: parseInt(req.body.rewardId)

@@ -2,7 +2,7 @@ var should = require('should')
 var request = require('supertest')
 
 describe('UsersController', () => {
-  describe('.create', () => {
+  describe('.createUser', () => {
     describe('POST /api/v1/users/create', () => {
       let now = (new Date()).getTime()
       it('should create a new user', (done) => {
@@ -30,7 +30,7 @@ describe('UsersController', () => {
       })
     })
   })
-  describe('.update', () => {
+  describe('.updateUser', () => {
     describe('PUT /api/v1/users/update', () => {
       let now = (new Date()).getTime()
       it('should update a user', (done) => {
@@ -57,7 +57,7 @@ describe('UsersController', () => {
       })
     })
   })
-  describe('.fetchOne', () => {
+  describe('.fetchOneUser', () => {
     describe('GET /api/v1/users/{userId}', () => {
       it('should retrieve a user', (done) => {
         request('http://127.0.0.1:10010')
@@ -80,7 +80,7 @@ describe('UsersController', () => {
       })
     })
   })
-  describe('.fecthAll', () => {
+  describe('.fecthAllUsers', () => {
     describe('GET /api/v1/users', () => {
       it('should retrieve all users', (done) => {
         request('http://127.0.0.1:10010')
@@ -100,28 +100,30 @@ describe('UsersController', () => {
       })
     })
   })
-  describe('POST /api/v1/users/search', () => {
-    it('should return a match', (done) => {
-      request('http://127.0.0.1:10010')
-        .post('/api/v1/users/search')
-        .send({
-          query: 'Jim'
-        })
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .end((err, res) => {
-          should.not.exist(err)
-          should.exist(res.body[0].id)
-          should.exist(res.body[0].firstName)
-          should.exist(res.body[0].lastName)
-          should.exist(res.body[0].email)
-          should.exist(res.body[0].createdAt)
-          done()
-        })
+  describe('.searchUsers', () => {
+    describe('POST /api/v1/users/search', () => {
+      it('should return a match', (done) => {
+        request('http://127.0.0.1:10010')
+          .post('/api/v1/users/search')
+          .send({
+            query: 'Jim'
+          })
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end((err, res) => {
+            should.not.exist(err)
+            should.exist(res.body[0].id)
+            should.exist(res.body[0].firstName)
+            should.exist(res.body[0].lastName)
+            should.exist(res.body[0].email)
+            should.exist(res.body[0].createdAt)
+            done()
+          })
+      })
     })
   })
-  describe('.delete', () => {
+  describe('.removeUser', () => {
     describe('DELETE /api/v1/users/{userId}', () => {
       let now = (new Date()).getTime()
       it('should create a new user then delete', (done) => {

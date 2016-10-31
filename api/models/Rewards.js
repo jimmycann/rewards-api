@@ -42,18 +42,27 @@ module.exports = {
         len: [1, 3]
       }
     },
-    products: {
-      type: Sequelize.ARRAY(Sequelize.STRING),
+    minQty: {
+      type: Sequelize.INTEGER,
       validate: {
-        isArray: true
+        len: [0, 5]
       }
+    },
+    minOrderAmt: {
+      type: Sequelize.INTEGER,
+      validate: {
+        len: [0, 5]
+      }
+    },
+    products: {
+      type: Sequelize.ARRAY(Sequelize.STRING)
     },
     discountType: Sequelize.ENUM('pc', 'abs'),
     amount: {
       type: Sequelize.INTEGER,
       defaultValue: 0,
       validate: {
-        maxLength: 10
+        len: [0, 5]
       }
     },
     createdAt: Sequelize.DATE,

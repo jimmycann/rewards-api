@@ -2,7 +2,7 @@ var should = require('should')
 var request = require('supertest')
 
 describe('TitlesController', () => {
-  describe('.create', () => {
+  describe('.createTitle', () => {
     describe('POST /api/v1/titles/create', () => {
       it('should create a new title', (done) => {
         request('http://127.0.0.1:10010')
@@ -26,7 +26,7 @@ describe('TitlesController', () => {
       })
     })
   })
-  describe('.update', () => {
+  describe('.updateTitle', () => {
     describe('PUT /api/v1/titles/update', () => {
       it('should update a title', (done) => {
         request('http://127.0.0.1:10010')
@@ -50,7 +50,7 @@ describe('TitlesController', () => {
       })
     })
   })
-  describe('.fetchOne', () => {
+  describe('.fetchOneTitle', () => {
     describe('GET /api/v1/titles/{titleId}', () => {
       it('should retrieve a title', (done) => {
         request('http://127.0.0.1:10010')
@@ -69,7 +69,7 @@ describe('TitlesController', () => {
       })
     })
   })
-  describe('.fecthAll', () => {
+  describe('.fecthAllTitles', () => {
     describe('GET /api/v1/titles', () => {
       it('should retrieve all titles', (done) => {
         request('http://127.0.0.1:10010')
@@ -87,7 +87,7 @@ describe('TitlesController', () => {
       })
     })
   })
-  describe('.delete', () => {
+  describe('.deleteTitle', () => {
     describe('DELETE /api/v1/titles/{titleId}', () => {
       it('should create a new title then delete', (done) => {
         request('http://127.0.0.1:10010')
