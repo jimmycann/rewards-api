@@ -50,7 +50,7 @@ paths:
       parameters:
         - name: user
           in: body
-          description: Parameters required for updating a user
+          description: Parameters required for updating a user. At least one property in the userData object is required.
           required: true
           schema:
             $ref: '#/definitions/UpdateUser'
@@ -181,7 +181,7 @@ paths:
       parameters:
         - name: title
           in: body
-          description: Parameters required for updating a title
+          description: Parameters required for updating a title. At least one property in the titleData object is required.
           required: true
           schema:
             $ref: '#/definitions/UpdateTitle'
@@ -248,6 +248,106 @@ paths:
             $ref: '#/definitions/UpdateSuccess'
         "204":
           description: The request was processed but no title was found
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/v1/rewards/create:
+    x-swagger-router-controller: RewardsController
+    post:
+      description: Creates a new reward
+      operationId: createReward
+      parameters:
+        - name: reward
+          in: body
+          description: Parameters required for creating a new reward
+          required: true
+          schema:
+            $ref: '#/definitions/NewReward'
+      responses:
+        "201":
+          description: Reward has been created
+          schema:
+            $ref: '#/definitions/Reward'
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/v1/rewards/update:
+    x-swagger-router-controller: RewardsController
+    put:
+      description: Updates a reward
+      operationId: updateReward
+      parameters:
+        - name: reward
+          in: body
+          description: Parameters required for updating a reward.  At least one property in the rewardData object is required.
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateReward'
+      responses:
+        "200":
+          description: The reward has been updated
+          schema:
+            $ref: '#/definitions/UpdateSuccess'
+        "204":
+          description: The request was processed but no reward was found
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/v1/rewards:
+    x-swagger-router-controller: RewardsController
+    get:
+      description: Retrieves all rewards
+      operationId: fetchAllRewards
+      responses:
+        "200":
+          description: Returns an array containing all rewards' data
+          schema:
+            $ref: '#/definitions/RewardArr'
+        "204":
+          description: The request was processed but no rewards were found
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
+  /api/v1/rewards/{rewardId}:
+    x-swagger-router-controller: RewardsController
+    get:
+      description: Retrieves a single reward
+      operationId: fetchOneReward
+      parameters:
+        - name: rewardId
+          in: path
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: Returns a rewards' data
+          schema:
+            $ref: '#/definitions/Reward'
+        "204":
+          description: The request was processed but no reward was found
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      description: Deletes a reward
+      operationId: removeReward
+      parameters:
+        - name: rewardId
+          in: path
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: A reward has been deleted
+          schema:
+            $ref: '#/definitions/UpdateSuccess'
+        "204":
+          description: The request was processed but no reward was found
         default:
           description: Unexpected Error
           schema:
@@ -412,6 +512,97 @@ definitions:
         type: string
         description: The titles' description
         maxLength: 255
+
+  Reward:
+    allOf:
+      - $ref: '#/definitions/NewReward'
+      - required:
+        - id
+        properties:
+          id:
+            type: integer
+            format: int64
+
+  RewardArr:
+    type: array
+    items:
+      $ref: '#/definitions/Reward'
+
+  NewReward:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        description: The rewards' name
+        minLength: 2
+        maxLength: 64
+      description:
+        type: string
+        description: The rewards' description
+        maxLength: 255
+      level:
+        type: string
+        description: The user level at which the reward is unlocked
+        minLength: 1
+        maxLength: 3
+      products:
+        type: array
+        description: An array of products for which this reward is applicable eg. ['coffee', 'cakes']
+        items:
+          type: string
+      discountType:
+        type: string
+        description: The type of discount to be applied. 'pc' for precentage, 'abs' for an absolute dollar value. 'pc' or 'abs' are the only values accepted
+        minLength: 2
+        maxLength: 3
+      amount:
+        type: integer
+        description: The percentage or dollar discount amount (depending on discountType setting) that applies to the reward
+        maxLength: 10
+
+  UpdateReward:
+    type: object
+    required:
+      - rewardId
+    properties:
+      rewardId:
+        type: integer
+        description: The ID of the reward that is to be updted
+        minLength: 1
+        maxLength: 11
+      rewardData:
+        type: object
+        description: An object containing the reward data to update. At least one paramter in this object is required
+      rewardData.name:
+        type: string
+        description: The rewards' name
+        minLength: 2
+        maxLength: 64
+      rewardData.description:
+        type: string
+        description: The rewards' description
+        maxLength: 255
+      rewardData.level:
+        type: string
+        description: The user level at which the reward is unlocked
+        minLength: 1
+        maxLength: 3
+      rewardData.products:
+        type: array
+        description: An array of products for which this reward is applicable eg. ['coffee', 'cakes']
+        items:
+          type: string
+      rewardData.discountType:
+        type: string
+        description: The type of discount to be applied. 'pc' for precentage, 'abs' for an absolute dollar value. 'pc' or 'abs' are the only values accepted
+        minLength: 2
+        maxLength: 3
+      rewardData.amount:
+        type: integer
+        description: The percentage or dollar discount amount (depending on discountType setting) that applies to the reward
+        maxLength: 10
 
   Error:
     required:

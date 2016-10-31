@@ -1,7 +1,10 @@
 {
 	"globals": {
 		"sails": true,
+		"RewardsController": true,
+		"TitlesController": true,
 		"UsersController": true,
+		"Rewards": true,
 		"Titles": true,
 		"Users": true,
 		"hello_world": true,

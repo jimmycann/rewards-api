@@ -7,7 +7,7 @@
 
 module.exports = {
   options: {
-    tableName: 'users',
+    tableName: 'rewards',
     classMethods: {},
     instanceMethods: {},
     hooks: {},
@@ -22,42 +22,17 @@ module.exports = {
       primaryKey: true,
       autoIncrement: true
     },
-    titleId: {
-      type: Sequelize.INTEGER,
-      defaultValue: 1,
-      validate: {
-        len: [1, 2]
-      }
-    },
-    email: {
+    name: {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
-        isEmail: true,
-        len: [3, 254]
-      }
-    },
-    firstName: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      validate: {
-        isAlpha: true,
         len: [2, 64]
       }
     },
-    lastName: {
+    description: {
       type: Sequelize.STRING,
-      allowNull: false,
       validate: {
-        isAlpha: true,
-        len: [2, 64]
-      }
-    },
-    mob: {
-      type: Sequelize.STRING,
-      defaultValue: null,
-      validate: {
-        len: [8, 16]
+        max: 255
       }
     },
     level: {
@@ -65,6 +40,20 @@ module.exports = {
       defaultValue: 1,
       validate: {
         len: [1, 3]
+      }
+    },
+    products: {
+      type: Sequelize.ARRAY(Sequelize.STRING),
+      validate: {
+        isArray: true
+      }
+    },
+    discountType: Sequelize.ENUM('pc', 'abs'),
+    amount: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+      validate: {
+        maxLength: 10
       }
     },
     createdAt: Sequelize.DATE,

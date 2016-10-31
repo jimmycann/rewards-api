@@ -20,10 +20,12 @@ module.exports = {
  * @path :: /api/v1/rewards/create (POST)
  * @param {{int}} req.body :: Reward parameters to be created
 {
-  firstName: string *
-  lastName: string *
-  email: string *
-  mob: integer
+  name: string *
+  description: string *
+  level: integer *
+  products: array of strings
+  discountType: string ('pc' or 'abs')
+  amount: integer
 }
  * @param {{obj}} req :: Request data
  * @param {{obj}} res :: Response data
@@ -31,10 +33,12 @@ module.exports = {
  */
 function createReward (req, res) {
   Rewards.create({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    mob: req.body.mob
+    name: req.body.name,
+    description: req.body.description,
+    level: parseInt(req.body.level),
+    products: req.body.products,
+    discountType: req.body.discountType,
+    amount: parseInt(req.body.amount)
   }).then((result) => {
     return res.status(201).send(result)
   }).catch((err) => {
@@ -50,10 +54,12 @@ function createReward (req, res) {
 {
    rewardId: integer
    rewardData: {
-     firstName: string
-     lastName: string
-     email: string
-     mob: integer
+     name: string *
+     description: string *
+     level: integer *
+     products: array of strings
+     discountType: string ('pc' or 'abs')
+     amount: integer
   }
 }
  * @param {{obj}} req :: Request data
@@ -61,7 +67,8 @@ function createReward (req, res) {
  * @result :: { success: true }
  */
 function updateReward (req, res) {
-  if (req.body.rewardData.mob) req.body.rewardData.mob = parseInt(req.body.rewardData.mob)
+  if (req.body.rewardData.level) req.body.rewardData.level = parseInt(req.body.rewardData.level)
+  if (req.body.rewardData.amount) req.body.rewardData.amount = parseInt(req.body.rewardData.amount)
   Rewards.update(req.body.rewardData, {
     where: {
       id: parseInt(req.body.rewardId)
