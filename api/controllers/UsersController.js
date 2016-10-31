@@ -11,6 +11,7 @@ module.exports = {
   updateUser: updateUser,
   fetchOneUser: fetchOneUser,
   fetchAllUsers: fetchAllUsers,
+  searchUsers: searchUsers,
   removeUser: removeUser
 }
 
@@ -84,7 +85,9 @@ function updateUser (req, res) {
  * @result :: Object containing the requested user data
  */
 function fetchOneUser (req, res) {
-  Users.findById(parseInt(req.swagger.params.userId.value)).then((result) => {
+  Users.findById(parseInt(req.swagger.params.userId.value), {
+    include: [Titles]
+  }).then((result) => {
     if (!result) return res.status(204).send()
     return res.status(200).send(result)
   }).catch((err) => {
@@ -101,7 +104,38 @@ function fetchOneUser (req, res) {
  * @result :: Object containing all users
  */
 function fetchAllUsers (req, res) {
-  Users.findAll().then((result) => {
+  Users.findAll({
+    include: [Titles]
+  }).then((result) => {
+    if (!result) return res.status(204).send()
+    return res.status(200).send(result)
+  }).catch((err) => {
+    return res.status(500).send(err)
+  })
+}
+
+/**
+ * @description :: Retrieves all users that match a search query
+ * @policy :: TBA
+ * @path :: /api/v1/users/search (POST)
+ * @param {{obj}} req :: Request data
+ * @param {{obj}} res :: Response data
+ * @result :: Object containing all matching users
+ */
+function searchUsers (req, res) {
+  Users.findAll({
+    where: {
+      $or: [
+        Sequelize.where(Sequelize.fn('concat', Sequelize.col('firstName'), ' ', Sequelize.col('lastName')), {
+          like: '%' + req.body.query + '%'
+        }),
+          { email: { $like: '%' + req.body.query + '%' } },
+          { mob: { $like: '%' + req.body.query + '%' } }
+      ]
+    },
+    limit: 5,
+    include: [Titles]
+  }).then((result) => {
     if (!result) return res.status(204).send()
     return res.status(200).send(result)
   }).catch((err) => {

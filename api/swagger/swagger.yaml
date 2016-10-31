@@ -81,6 +81,37 @@ paths:
           description: Unexpected Error
           schema:
             $ref: '#/definitions/Error'
+  /api/v1/users/search:
+    x-swagger-router-controller: UsersController
+    post:
+      description: Retrieves all matching users
+      operationId: searchUsers
+      parameters:
+        - name: user
+          in: body
+          description: The search query to be performed
+          required: true
+          schema:
+            type: object
+            required:
+              - query
+            properties:
+              query:
+                type: string
+                description: The search query. Email, first & last name.
+                minLength: 2
+                maxLength: 20
+      responses:
+        "200":
+          description: Returns an array containing matching users' data
+          schema:
+            $ref: '#/definitions/UserArr'
+        "204":
+          description: The request was processed but no users were found
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
   /api/v1/users/{userId}:
     x-swagger-router-controller: UsersController
     get:
@@ -256,9 +287,9 @@ definitions:
     properties:
       titleId:
         type: integer
-        description: The users' titleId (Default 0)
+        description: The users' titleId (Default 1)
         minLength: 1
-        maxLength: 2     
+        maxLength: 2
       firstName:
         type: string
         description: The users' first name
@@ -275,15 +306,15 @@ definitions:
         minLength: 3
         maxLength: 254
       mob:
-        type: integer
+        type: string
         description: The users' mobile phone number
         minLength: 8
         maxLength: 16
       level:
         type: integer
-        description: The users' level (Default 0)
+        description: The users' level (Default 1)
         minLength: 1
-        maxLength: 3        
+        maxLength: 3
 
   UpdateUser:
     type: object
@@ -302,7 +333,7 @@ definitions:
         type: integer
         description: The users' titleId
         minLength: 1
-        maxLength: 2        
+        maxLength: 2
       userData.firstName:
         type: string
         description: The users' first name
@@ -319,7 +350,7 @@ definitions:
         minLength: 3
         maxLength: 254
       userData.mob:
-        type: integer
+        type: string
         description: The users' mobile phone number
         minLength: 8
         maxLength: 16
@@ -348,7 +379,7 @@ definitions:
     type: object
     required:
       - name
-    properties:   
+    properties:
       name:
         type: string
         description: The title name
@@ -357,7 +388,7 @@ definitions:
       description:
         type: string
         description: The titles' description
-        maxLength: 255   
+        maxLength: 255
 
   UpdateTitle:
     type: object
@@ -380,7 +411,7 @@ definitions:
       titleData.description:
         type: string
         description: The titles' description
-        maxLength: 255        
+        maxLength: 255
 
   Error:
     required:

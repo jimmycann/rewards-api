@@ -14,7 +14,7 @@ module.exports = {
     timestamps: true
   },
   associations: () => {
-    Users.hasOne(Titles, {foreignKey: 'titleId'})
+    Users.belongsTo(Titles, {foreignKey: 'titleId'})
   },
   attributes: {
     id: {
@@ -24,7 +24,7 @@ module.exports = {
     },
     titleId: {
       type: Sequelize.INTEGER,
-      defaultValue: 0,
+      defaultValue: 1,
       validate: {
         len: [1, 2]
       }
@@ -54,7 +54,7 @@ module.exports = {
       }
     },
     mob: {
-      type: Sequelize.BIGINT,
+      type: Sequelize.STRING,
       defaultValue: null,
       validate: {
         len: [8, 16]

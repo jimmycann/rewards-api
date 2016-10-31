@@ -14,7 +14,7 @@ module.exports = {
     timestamps: true
   },
   associations: () => {
-    Titles.belongsTo(Users, {foreignKey: 'titleId'})
+    Titles.hasMany(Users, {foreignKey: 'titleId'})
   },
   attributes: {
     id: {
