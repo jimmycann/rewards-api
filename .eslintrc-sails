@@ -7,7 +7,7 @@
 		"Rewards": true,
 		"Titles": true,
 		"Users": true,
-		"hello_world": true,
+		"UserService": true,
 		"sequelize": true
 	}
 }

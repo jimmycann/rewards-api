@@ -57,6 +57,27 @@ describe('UsersController', () => {
       })
     })
   })
+  describe('.levelUpUser', () => {
+    describe('PUT /api/v1/users/level-up', () => {
+      it('should increment a users\' level', (done) => {
+        request('http://127.0.0.1:10010')
+          .put('/api/v1/users/level-up')
+          .send({
+            userId: 1,
+            levelIncrement: 5
+          })
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end((err, res) => {
+            console.log(res.body)
+            should.not.exist(err)
+            res.body.should.have.property('success', true)
+            done()
+          })
+      })
+    })
+  })
   describe('.fetchOneUser', () => {
     describe('GET /api/v1/users/{userId}', () => {
       it('should retrieve a user', (done) => {

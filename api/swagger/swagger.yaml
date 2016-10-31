@@ -81,6 +81,29 @@ paths:
           description: Unexpected Error
           schema:
             $ref: '#/definitions/Error'
+  /api/v1/users/level-up:
+    x-swagger-router-controller: UsersController
+    put:
+      description: Level-up a user
+      operationId: levelUpUser
+      parameters:
+        - name: userId and level increment
+          in: body
+          description: Parameters required for incrementing a user level.
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateUserLevel'
+      responses:
+        "200":
+          description: The user level has been updated
+          schema:
+            $ref: '#/definitions/UpdateSuccess'
+        "204":
+          description: The request was processed but no user was found
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'            
   /api/v1/users/search:
     x-swagger-router-controller: UsersController
     post:
@@ -459,6 +482,23 @@ definitions:
         description: The users' level
         minLength: 1
         maxLength: 3
+        
+  UpdateUserLevel:
+    type: object
+    required:
+      - userId
+      - levelIncrement
+    properties:
+      userId:
+        type: integer
+        description: The ID of the user that is to be updted
+        minLength: 1
+        maxLength: 11
+      levelIncrement:
+        type: integer
+        description: The number of levels to increment. eg. If the users' level is 5 and 'levelIncrement' is set as 10, the new user 'level' field will be 15.
+        minLength: 1
+        maxLength: 11      
 
   Title:
     allOf:

@@ -11,6 +11,7 @@ module.exports = {
   updateUser: updateUser,
   fetchOneUser: fetchOneUser,
   fetchAllUsers: fetchAllUsers,
+  levelUpUser: levelUpUser,
   searchUsers: searchUsers,
   removeUser: removeUser
 }
@@ -111,6 +112,29 @@ function fetchAllUsers (req, res) {
     return res.status(200).send(result)
   }).catch((err) => {
     return res.status(500).send(err)
+  })
+}
+
+/**
+ * @description :: Level up a user
+ * @policy :: TBA
+ * @path :: /api/v1/users/level-up (PUT)
+ * @param {{int}} req.body :: User parameters
+{
+   userId: integer *
+   levelIncrement: integer *
+}
+ * @param {{obj}} req :: Request data
+ * @param {{obj}} res :: Response data
+ * @result :: { success: true }
+ */
+function levelUpUser (req, res) {
+  if (req.body.userId) req.body.userId = parseInt(req.body.userId)
+  if (req.body.levelIncrement) req.body.levelIncrement = parseInt(req.body.levelIncrement)
+  UserService.levelUp(req.body, (err, user) => {
+    if (err) return res.status(500).send(err)
+    if (!user) return res.status(204).send()
+    return res.status(200).send({ success: true })
   })
 }
 
