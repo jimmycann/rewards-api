@@ -10,6 +10,7 @@ module.exports = {
   create: create,
   update: update,
   fetchOne: fetchOne,
+  fetchAll: fetchAll,
   remove: remove
 }
 
@@ -80,10 +81,27 @@ function update (req, res) {
  * @param {{obj}} req :: Request data
  * @param {{obj}} res :: Response data
  * @param {{int}} req.swagger.params.userId.value :: The userId to retrieve
- * @result :: Object containing the newly created user
+ * @result :: Object containing the requested user data
  */
 function fetchOne (req, res) {
   Users.findById(parseInt(req.swagger.params.userId.value)).then((result) => {
+    if (!result) return res.status(204).send()
+    return res.status(200).send(result)
+  }).catch((err) => {
+    return res.status(500).send(err)
+  })
+}
+
+/**
+ * @description :: Retrieves all users
+ * @policy :: TBA
+ * @path :: /api/v1/users (GET)
+ * @param {{obj}} req :: Request data
+ * @param {{obj}} res :: Response data
+ * @result :: Object containing all users
+ */
+function fetchAll (req, res) {
+  Users.findAll().then((result) => {
     if (!result) return res.status(204).send()
     return res.status(200).send(result)
   }).catch((err) => {

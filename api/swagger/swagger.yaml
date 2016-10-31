@@ -65,6 +65,22 @@ paths:
           description: Unexpected Error
           schema:
             $ref: '#/definitions/Error'
+  /api/v1/users:
+    x-swagger-router-controller: UsersController
+    get:
+      description: Retrieves all users
+      operationId: fetchAll
+      responses:
+        "200":
+          description: Returns an array containing all users' data
+          schema:
+            $ref: '#/definitions/UserArr'
+        "204":
+          description: The request was processed but no users were found
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
   /api/v1/users/{userId}:
     x-swagger-router-controller: UsersController
     get:
@@ -125,6 +141,11 @@ definitions:
           id:
             type: integer
             format: int64
+            
+  UserArr:
+    type: array
+    items:
+      $ref: '#/definitions/User'
 
   NewUser:
     type: object

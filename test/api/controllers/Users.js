@@ -80,6 +80,26 @@ describe('UsersController', () => {
       })
     })
   })
+  describe('.fecthAll', () => {
+    describe('GET /api/v1/users', () => {
+      it('should retrieve all users', (done) => {
+        request('http://127.0.0.1:10010')
+          .get('/api/v1/users')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end((err, res) => {
+            should.not.exist(err)
+            should.exist(res.body[0].id)
+            should.exist(res.body[0].firstName)
+            should.exist(res.body[0].lastName)
+            should.exist(res.body[0].email)
+            should.exist(res.body[0].createdAt)
+            done()
+          })
+      })
+    })
+  })
   describe('.delete', () => {
     describe('DELETE /api/v1/users/{userId}', () => {
       let now = (new Date()).getTime()
