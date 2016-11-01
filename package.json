@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "description": "A membership API which allows returning customers to accrue rewards and redeem those rewards when they make future purchases.",
   "scripts": {
+    "start": "swagger project start",
     "start:prod": "forever start app.js --prod",
-    "start:dev": "swagger project start",
     "stop:prod": "forever stop app.js",
     "restart:prod": "forever restart app.js --prod",
     "test": "swagger project test",
