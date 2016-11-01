@@ -5,7 +5,7 @@
   "description": "A membership API which allows returning customers to accrue rewards and redeem those rewards when they make future purchases.",
   "scripts": {
     "start:prod": "forever start app.js --prod",
-    "start:dev": "cross-env NODE_ENV='dev' nodemon app.js",
+    "start:dev": "swagger project start",
     "stop:prod": "forever stop app.js",
     "restart:prod": "forever restart app.js --prod",
     "test": "swagger project test",
@@ -25,6 +25,7 @@
     "sails-service-cipher": "^3.2.1",
     "sails-service-hash": "^3.2.1",
     "socket.io-redis": "^1.1.1",
+    "swagger": "^0.7.5",
     "swagger-sails-hook": "^0.7.0"
   },
   "devDependencies": {
