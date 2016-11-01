@@ -34,15 +34,19 @@ module.exports = {
  * @result :: Object containing the newly created reward
  */
 function createReward (req, res) {
+  if (req.body.level) req.body.level = parseInt(req.body.level)
+  if (req.body.amount) req.body.amount = parseInt(req.body.amount)
+  if (req.body.minQty) req.body.minQty = parseInt(req.body.minQty)
+  if (req.body.minOrderAmt) req.body.minOrderAmt = parseInt(req.body.minOrderAmt)
   Rewards.create({
     name: req.body.name,
     description: req.body.description,
-    level: parseInt(req.body.level),
+    level: req.body.level,
     products: req.body.products,
-    minQty: parseInt(req.body.minQty),
-    minOrderAmt: parseInt(req.body.minOrderAmt),
+    minQty: req.body.minQty,
+    minOrderAmt: req.body.minOrderAmt,
     discountType: req.body.discountType,
-    amount: parseInt(req.body.amount)
+    amount: req.body.amount
   }).then((result) => {
     return res.status(201).send(result)
   }).catch((err) => {
