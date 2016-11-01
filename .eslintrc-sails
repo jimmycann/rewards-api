@@ -1,12 +1,16 @@
 {
 	"globals": {
 		"sails": true,
+		"OrdersController": true,
 		"RewardsController": true,
 		"TitlesController": true,
 		"UsersController": true,
+		"Orders": true,
 		"Rewards": true,
 		"Titles": true,
 		"Users": true,
+		"OrderService": true,
+		"RewardService": true,
 		"UserService": true,
 		"sequelize": true
 	}
