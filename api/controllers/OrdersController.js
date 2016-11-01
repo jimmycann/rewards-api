@@ -6,12 +6,15 @@
  * @description :: Logic for managing orders
  */
 
+const _ = require('lodash')
+
 module.exports = {
   createOrder: createOrder,
   updateOrder: updateOrder,
   fetchOneOrder: fetchOneOrder,
   fetchAllOrders: fetchAllOrders,
-  removeOrder: removeOrder
+  removeOrder: removeOrder,
+  applyReward: applyReward
 }
 
 /**
@@ -135,5 +138,38 @@ function removeOrder (req, res) {
     return res.status(200).send({ success: true })
   }).catch((err) => {
     return res.status(500).send(err)
+  })
+}
+
+/**
+ * @description :: Apply a reward to an order
+ * @policy :: TBA
+ * @path :: /api/v1/orders/apply-reward (PUT)
+ * @param {{int}} req.body :: Reward IDs
+{
+  orderId: integer
+  rewards: array
+}
+ * @param {{obj}} req :: Request data
+ * @param {{obj}} res :: Response data
+ * @result :: (200) { success: true }
+ */
+function applyReward (req, res) {
+  Orders.findById(req.body.orderId).then((order) => {
+    if (!order) return res.status(204).send()
+    let rewards = _.concat(order.rewards, req.body.rewards)
+    Orders.update({
+      rewards: rewards
+    }, {
+      where: {
+        id: parseInt(req.body.orderId)
+      }
+    }).then(() => {
+      return res.status(200).send({ success: true })
+    }).catch((err) => {
+      return res.status(500).send('Err: ' + err)
+    })
+  }).catch((err) => {
+    return res.status(500).send('Err: ' + err)
   })
 }

@@ -419,6 +419,38 @@ paths:
           description: Unexpected Error
           schema:
             $ref: '#/definitions/Error'
+  /api/v1/orders/apply-reward:
+    x-swagger-router-controller: OrdersController
+    put:
+      description: Updates an order
+      operationId: applyReward
+      parameters:
+        - name: rewardId array
+          in: body
+          description: An array of rewardIds to apply to an order
+          required: true
+          schema:
+            type: object
+            properties:
+              orderId:
+                description: The order ID to apply to reward to
+                type: integer
+              rewards:
+                type: array
+                items:
+                  description: A rewardId to apply to an order
+                  type: integer
+      responses:
+        "200":
+          description: The order has been updated
+          schema:
+            $ref: '#/definitions/UpdateSuccess'
+        "204":
+          description: The request was processed but no order was found
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'            
   /api/v1/orders:
     x-swagger-router-controller: OrdersController
     get:
@@ -798,6 +830,8 @@ definitions:
         description: The userId the order will be attributed to.
         minLength: 1
         maxLength: 11
+      eligibleRewards:
+        $ref: '#/definitions/RewardArr'
       items:
         type: array
         description: An array of products for which this order is applicable
@@ -860,7 +894,6 @@ definitions:
       orderData.subtotal:
         type: integer 
         description: Sum of all items * qty after rewards have been applied. Not inclusive of GST.
-      
 
   Error:
     required:
