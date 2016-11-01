@@ -1,0 +1,475 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Rewards API (localhost)",
+		"_postman_id": "79f2b9e2-3537-764a-e6bc-fdd59faf652e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Orders",
+			"description": "",
+			"item": [
+				{
+					"name": "http://localhost:10010/api/v1/orders",
+					"request": {
+						"url": "http://localhost:10010/api/v1/orders",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": 1,\n\t\"userData\": {\n\t\t\"firstName\": \"Jim\",\n\t\t\"lastName\": \"Cann\",\n\t\t\"email\": \"jim@jim.com\",\n\t\t\"mob\": \"04593323222\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/orders/create",
+					"request": {
+						"url": "http://localhost:10010/api/v1/orders/create",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1,\n    \"items\": [{\n\t\t\"product\": \"coffee\",\n\t\t\"qty\": 1,\n\t\t\"amt\": 380\n\t}]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/orders/update",
+					"request": {
+						"url": "http://localhost:10010/api/v1/orders/update",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"orderId\": 1,\n\t\"orderData\": {\n        \"userId\": 1,\n\t    \"products\": [\n\t      \"coffee\"\n\t    ],\n\t    \"items\": \"[{\\\"product\\\":\\\"coffee\\\",\\\"qty\\\":1,\\\"amt\\\":380}]\",\n\t    \"subtotal\": 380,\n\t    \"rewards\": [1]\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/orders/1",
+					"request": {
+						"url": "http://localhost:10010/api/v1/orders/1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/orders/1",
+					"request": {
+						"url": "http://localhost:10010/api/v1/orders/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": 1,\n\t\"userData\": {\n\t\t\"firstName\": \"Jim\",\n\t\t\"lastName\": \"Cann\",\n\t\t\"email\": \"jim@jim.com\",\n\t\t\"mob\": \"04593323222\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/orders/create copy",
+					"request": {
+						"url": "http://localhost:10010/api/v1/orders/create",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1,\n    \"items\": [{\n\t\t\"product\": \"coffee\",\n\t\t\"qty\": 1,\n\t\t\"amt\": 380\n\t}]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rewards",
+			"description": "",
+			"item": [
+				{
+					"name": "http://localhost:10010/api/v1/rewards",
+					"request": {
+						"url": "http://localhost:10010/api/v1/rewards",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": 1,\n\t\"userData\": {\n\t\t\"firstName\": \"Jim\",\n\t\t\"lastName\": \"Cann\",\n\t\t\"email\": \"jim@jim.com\",\n\t\t\"mob\": \"04593323222\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/rewards/create",
+					"request": {
+						"url": "http://localhost:10010/api/v1/rewards/create",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Free Coffee\",\n    \"description\": \"Who doesn't love a free coffee from their favourite cafe? Dedication to the morning java has brought you here.\",\n    \"level\": 1,\n    \"products\": [\"coffee\"],\n    \"discountType\": \"pc\",\n    \"amount\": 100\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/rewards/update",
+					"request": {
+						"url": "http://localhost:10010/api/v1/rewards/update",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"rewardId\": 1,\n\t\"rewardData\": {\n        \"name\": \"Free Coffee\",\n        \"description\": \"Who doesn't love a free coffee from their favourite cafe? Dedication to the morning java has brought you here.\",\n        \"level\": 1,\n        \"products\": [\"coffee\"],\n        \"discountType\": \"pc\",\n        \"amount\": 100\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/rewards/1",
+					"request": {
+						"url": "http://localhost:10010/api/v1/rewards/1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": 1,\n\t\"userData\": {\n\t\t\"firstName\": \"Jim\",\n\t\t\"lastName\": \"Cann\",\n\t\t\"email\": \"jim@jim.com\",\n\t\t\"mob\": \"04593323222\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/rewards/1",
+					"request": {
+						"url": "http://localhost:10010/api/v1/rewards/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": 1,\n\t\"userData\": {\n\t\t\"firstName\": \"Jim\",\n\t\t\"lastName\": \"Cann\",\n\t\t\"email\": \"jim@jim.com\",\n\t\t\"mob\": \"04593323222\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Titles",
+			"description": "",
+			"item": [
+				{
+					"name": "http://localhost:10010/api/v1/titles",
+					"request": {
+						"url": "http://localhost:10010/api/v1/titles",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": 1,\n\t\"userData\": {\n\t\t\"firstName\": \"Jim\",\n\t\t\"lastName\": \"Cann\",\n\t\t\"email\": \"jim@jim.com\",\n\t\t\"mob\": \"04593323222\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/titles/create",
+					"request": {
+						"url": "http://localhost:10010/api/v1/titles/create",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Initiate\",\n\t\"description\": \"You've only come in a couple of times, but you know what we're all about\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/titles/update",
+					"request": {
+						"url": "http://localhost:10010/api/v1/titles/update",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"titleId\": 1,\n\t\"titleData\": {\n        \"name\": \"Initiate\",\n        \"description\": \"You've only come in a couple of times, but you know what we're all about\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/titles/1",
+					"request": {
+						"url": "http://localhost:10010/api/v1/titles/1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": 1,\n\t\"userData\": {\n\t\t\"firstName\": \"Jim\",\n\t\t\"lastName\": \"Cann\",\n\t\t\"email\": \"jim@jim.com\",\n\t\t\"mob\": \"04593323222\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/titles/1",
+					"request": {
+						"url": "http://localhost:10010/api/v1/titles/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": 1,\n\t\"userData\": {\n\t\t\"firstName\": \"Jim\",\n\t\t\"lastName\": \"Cann\",\n\t\t\"email\": \"jim@jim.com\",\n\t\t\"mob\": \"04593323222\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"item": [
+				{
+					"name": "http://localhost:10010/api/v1/users/search",
+					"request": {
+						"url": "http://localhost:10010/api/v1/users/search",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"query\": \"Jim\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/users/create",
+					"request": {
+						"url": "http://localhost:10010/api/v1/titles/create",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Initiate\",\n\t\"description\": \"You've only come in a couple of times, but you know what we're all about\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/users/update",
+					"request": {
+						"url": "http://localhost:10010/api/v1/users/update",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": 1,\n\t\"userData\": {\n\t\t\"firstName\": \"Jim\",\n\t\t\"lastName\": \"Cann\",\n\t\t\"email\": \"jim@jim.com\",\n\t\t\"mob\": \"04593323222\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/users/1",
+					"request": {
+						"url": "http://localhost:10010/api/v1/users/1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": 1,\n\t\"userData\": {\n\t\t\"firstName\": \"Jim\",\n\t\t\"lastName\": \"Cann\",\n\t\t\"email\": \"jim@jim.com\",\n\t\t\"mob\": \"04593323222\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/users/1",
+					"request": {
+						"url": "http://localhost:10010/api/v1/users/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": 1,\n\t\"userData\": {\n\t\t\"firstName\": \"Jim\",\n\t\t\"lastName\": \"Cann\",\n\t\t\"email\": \"jim@jim.com\",\n\t\t\"mob\": \"04593323222\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:10010/api/v1/users",
+					"request": {
+						"url": "http://localhost:10010/api/v1/users/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": 1,\n\t\"userData\": {\n\t\t\"firstName\": \"Jim\",\n\t\t\"lastName\": \"Cann\",\n\t\t\"email\": \"jim@jim.com\",\n\t\t\"mob\": \"04593323222\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

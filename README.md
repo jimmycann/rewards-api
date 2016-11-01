@@ -2,9 +2,10 @@
 
 A [Swagger](https://www.npmjs.com/package/swagger) / [Sails](http://sailsjs.org) application
 
-A membership API which allows returning customers to accrue rewards and redeem those rewards when they make future purchases.
+Membership API which allows returning customers to accrue rewards and redeem those rewards when they make future purchases.
 
 ## Tools
+
 - Sails
 - Swagger
 - PostgreSQL
@@ -40,7 +41,12 @@ For development tools and building:
 - `/test` Contains the supertest definitions for each controller
 
 ## API Documentation
+
 The API editor and documentation view is available but running `swagger project edit` in terminal from the project root. It's the best way to view all available paths and definitions.
+
+## Postman
+
+An easy (and brilliant) tool for manually testing API routes is [Postman](https://www.getpostman.com/). I've included a Postman collection definition in the root of the project as `postman.json` you can import and use on your local machine.
 
 ## Code Style and Linting
 
@@ -51,6 +57,7 @@ With the best of intentions, effort has been made to follow styling practices de
 To get it working, you'll need to use the recommended [Atom IDE](atom.io) and install the following packages
 
 `apm install linter`
+
 `apm install linter-eslint`
 
 Unfortunately the packages in the GUI don't seem to match what is actually available, so it is necessary to install from the CLI.
@@ -58,6 +65,7 @@ Unfortunately the packages in the GUI don't seem to match what is actually avail
 Once installed, restart Atom and live linting in your IDE.
 
 ## Documentation and Comments Within the Code
+
 Within reason, code should be written with readability in mind. Comments play an integral part for the next developer who will see your code.
 
 ```
